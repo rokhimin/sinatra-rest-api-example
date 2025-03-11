@@ -1,0 +1,17 @@
+<h2><%= @anime['name'] %></h2>
+
+<p><strong>Synopsis:</strong> <%= @anime['synopsis'] %></p>
+<p><strong>Airing:</strong> <%= @anime['airing'] == 1 ? 'Yes' : 'No' %></p>
+<p><strong>Characters:</strong> <%= @anime['chara'] %></p>
+
+<a href="/anime/<%= @anime['id'] %>/edit" class="btn btn-edit">Edit</a>
+<form action="/api/anime/<%= @anime['id'] %>" method="post" style="display:inline" onsubmit="return confirmDelete()">
+  <input type="hidden" name="_method" value="delete">
+  <input type="submit" value="Delete" class="btn btn-delete" style="border:none">
+</form>
+
+<script>
+  function confirmDelete() {
+    return confirm("Are you sure you want to delete this anime?");
+  }
+</script>

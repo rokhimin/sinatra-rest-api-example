@@ -1,0 +1,50 @@
+<h2>Edit Anime</h2>
+
+<form id="editAnimeForm">
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" value="<%= @anime['name'] %>" required>
+  
+  <label for="synopsis">Synopsis:</label>
+  <textarea id="synopsis" name="synopsis" rows="4"><%= @anime['synopsis'] %></textarea>
+  
+  <label for="airing">
+    <input type="checkbox" id="airing" name="airing" <%= @anime['airing'] == 1 ? 'checked' : '' %>>
+    Currently Airing
+  </label>
+  
+  <label for="chara">Characters:</label>
+  <textarea id="chara" name="chara" rows="3"><%= @anime['chara'] %></textarea>
+  
+  <input type="submit" value="Update Anime">
+</form>
+
+<script>
+  document.getElementById('editAnimeForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const animeId = <%= @anime['id'] %>;
+    const data = {
+      name: document.getElementById('name').value,
+      synopsis: document.getElementById('synopsis').value,
+      airing: document.getElementById('airing').checked,
+      chara: document.getElementById('chara').value
+    };
+    
+    fetch(`/api/anime/${animeId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+      alert('Anime updated successfully!');
+      window.location.href = `/anime/${animeId}`;
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Error updating anime!');
+    });
+  });
+</script>
