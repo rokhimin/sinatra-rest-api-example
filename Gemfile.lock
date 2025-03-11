@@ -1,0 +1,44 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    json (2.7.6)
+    mini_portile2 (2.8.8)
+    multi_json (1.15.0)
+    mustermann (3.0.3)
+      ruby2_keywords (~> 0.0.1)
+    nio4r (2.7.4)
+    puma (6.3.1)
+      nio4r (~> 2.0)
+    rack (2.2.13)
+    rack-protection (3.0.6)
+      rack
+    ruby2_keywords (0.0.5)
+    sinatra (3.0.6)
+      mustermann (~> 3.0)
+      rack (~> 2.2, >= 2.2.4)
+      rack-protection (= 3.0.6)
+      tilt (~> 2.0)
+    sinatra-contrib (3.0.6)
+      multi_json
+      mustermann (~> 3.0)
+      rack-protection (= 3.0.6)
+      sinatra (= 3.0.6)
+      tilt (~> 2.0)
+    sqlite3 (1.6.9)
+      mini_portile2 (~> 2.8.0)
+    tilt (2.6.0)
+
+PLATFORMS
+  ruby
+  x86_64-linux
+
+DEPENDENCIES
+  json (~> 2.7.1)
+  puma (~> 6.3.1)
+  rack-protection (= 3.0.6)
+  sinatra (= 3.0.6)
+  sinatra-contrib (= 3.0.6)
+  sqlite3 (~> 1.6.3)
+
+BUNDLED WITH
+   2.6.3

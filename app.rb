@@ -127,6 +127,7 @@ end
 # Tampilkan form untuk menambah anime baru
 get '/anime/new' do
   content_type :html
+  @anime = {} # Inisialisasi @anime sebagai hash kosong
   erb :new
 end
 

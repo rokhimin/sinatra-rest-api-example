@@ -4,18 +4,17 @@
       <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
         <ul>
           <li><a href="/">Home</a></li>
-          <li><a href="/anime/<%= @anime['id'] %>"><%= @anime['name'] %></a></li>
-          <li class="is-active"><a href="#" aria-current="page">Edit</a></li>
+          <li class="is-active"><a href="#" aria-current="page">Add New Anime</a></li>
         </ul>
       </nav>
       
-      <h1 class="title has-text-centered has-text-light">Edit Anime</h1>
+      <h1 class="title has-text-centered has-text-light">Add New Anime</h1>
       
-      <form id="editAnimeForm">
+      <form id="newAnimeForm">
         <div class="field">
           <label class="label">Name</label>
           <div class="control has-icons-left">
-            <input class="input" type="text" id="name" name="name" placeholder="Anime Title" value="<%= @anime['name'] %>" required>
+            <input class="input" type="text" id="name" name="name" placeholder="Anime Title" required>
             <span class="icon is-small is-left">
               <i class="fas fa-film"></i>
             </span>
@@ -25,14 +24,14 @@
         <div class="field">
           <label class="label">Synopsis</label>
           <div class="control">
-            <textarea class="textarea" id="synopsis" name="synopsis" placeholder="Anime synopsis/description" rows="4"><%= @anime['synopsis'] %></textarea>
+            <textarea class="textarea" id="synopsis" name="synopsis" placeholder="Anime synopsis/description" rows="4"></textarea>
           </div>
         </div>
         
         <div class="field">
           <div class="control">
             <label class="checkbox">
-              <input type="checkbox" id="airing" name="airing" <%= @anime['airing'] == 1 ? 'checked' : '' %>>
+              <input type="checkbox" id="airing" name="airing">
               Currently Airing
             </label>
           </div>
@@ -41,7 +40,7 @@
         <div class="field">
           <label class="label">Characters</label>
           <div class="control">
-            <textarea class="textarea" id="chara" name="chara" placeholder="List of main characters (e.g. Naruto, Sasuke, Sakura)" rows="3"><%= @anime['chara'] %></textarea>
+            <textarea class="textarea" id="chara" name="chara" placeholder="List of main characters (e.g. Naruto, Sasuke, Sakura)" rows="3"></textarea>
           </div>
           <p class="help">Separate character names with commas</p>
         </div>
@@ -50,11 +49,11 @@
           <div class="control">
             <button type="submit" class="button is-primary is-medium">
               <span class="icon"><i class="fas fa-save"></i></span>
-              <span>Update Anime</span>
+              <span>Save Anime</span>
             </button>
           </div>
           <div class="control">
-            <a href="/anime/<%= @anime['id'] %>" class="button is-light is-medium">
+            <a href="/" class="button is-light is-medium">
               <span class="icon"><i class="fas fa-ban"></i></span>
               <span>Cancel</span>
             </a>
@@ -68,7 +67,7 @@
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     // Form submission
-    const form = document.getElementById('editAnimeForm');
+    const form = document.getElementById('newAnimeForm');
     
     form.addEventListener('submit', function(e) {
       e.preventDefault();
@@ -84,8 +83,8 @@
         chara: document.getElementById('chara').value
       };
       
-      fetch('/api/anime/<%= @anime['id'] %>', {
-        method: 'PUT',
+      fetch('/api/anime', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
@@ -103,7 +102,7 @@
         notification.className = 'notification is-success';
         notification.innerHTML = `
           <button class="delete"></button>
-          Anime updated successfully!
+          Anime added successfully!
         `;
         
         // Insert notification at top of form
@@ -114,9 +113,9 @@
           notification.remove();
         });
         
-        // Redirect after 1.5 seconds
+        // Hide notification after 3 seconds
         setTimeout(() => {
-          window.location.href = '/anime/<%= @anime['id'] %>';
+          window.location.href = '/';
         }, 1500);
       })
       .catch(error => {
@@ -127,7 +126,7 @@
         notification.className = 'notification is-danger';
         notification.innerHTML = `
           <button class="delete"></button>
-          Error updating anime: ${error.message}
+          Error adding anime: ${error.message}
         `;
         
         // Insert notification at top of form
